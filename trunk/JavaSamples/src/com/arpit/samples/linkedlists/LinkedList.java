@@ -8,18 +8,11 @@ public class LinkedList<T>
 		Node next = null;
 	}
 
-	Node head = null;
+    private static final int MAX_COUNT = 11;
 
-	public static void main(String[] args)
-	{
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		for(int i = 0; i < 10; i++)
-		list.insert(i);
-		list.deleteLast();
-		list.print();
-	}
+	protected Node head = null;
 	
-	private void insert(T data)
+	public void append(T data)
 	{
 		Node copy = head;
 		Node newNode = new Node();
@@ -39,27 +32,174 @@ public class LinkedList<T>
 		copy.next = newNode;
 	}
 
-	private void deleteLast()
+	public void insertAtHead(T data)
 	{
-		Node copy = head;
-		if(copy == null)
-			return;
+		Node newNode = new Node();
+		newNode.data = data;
+		newNode.next = head;
+		head = newNode;
+	}
 
-		while(copy.next != null)
+	public void deleteLast()
+	{
+		if(this.head == null)
+			return;
+		
+		Node copy = head;
+		while(copy.next != null && copy.next.next != null)
 		{
 			copy = copy.next;
 		}
 
-		copy = null;
+		copy.next = null;
 	}
 	
-	private void print()
+	public void print()
 	{
 		Node copy = head;
-		while(copy != null)
+		int count = 0;
+		while(copy != null && count < MAX_COUNT)
 		{
-			System.out.println(copy.data);
+			System.out.print(copy.data + " ");
 			copy = copy.next;
+			count++;
 		}
+	    System.out.println();
 	}
+
+	public boolean detectLoop()
+	{
+	    if(head == null)
+	    {
+	        return false;
+	    }
+		Node slow = head;
+		Node fast = head.next;
+
+		while(fast != null && slow != null)
+        {
+            if(fast == slow)
+            {
+                return true;
+            }
+            slow = slow.next;
+            if(fast.next != null)
+            {
+                fast = fast.next.next;
+            }
+            else
+            {
+                fast = null;
+            }
+        }
+        return false;
+	}
+		
+	public void removeLoopIfExists()
+	{
+	    if(head == null)
+        {
+            return;
+        }
+        Node slow = head;
+        Node fast = head.next;
+        
+        while(fast != null && slow != null)
+        {
+            if(fast == slow)
+            {
+                break;
+            }
+            slow = slow.next;
+            if(fast.next != null)
+            {
+                fast = fast.next.next;
+            }
+            else
+            {
+                fast = null;
+            }
+        }
+        
+        if(fast != null)
+        {
+            //count num nodes in loop
+            Node copyFast = fast;
+            int nodesInLoop = 0;
+            while(copyFast.next != fast)
+            {
+                nodesInLoop++;
+                copyFast = copyFast.next;
+            }
+            fast = head;
+            while(nodesInLoop > 0)
+            {
+                fast = fast.next;
+                nodesInLoop--;
+            }
+            
+            slow = head;
+            while(slow.next != fast.next)
+            {
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            fast.next = null;
+        }
+	}
+	
+	public void printLoopStartNode()
+	{
+	    if(head == null)
+        {
+            return;
+        }
+        Node slow = head;
+        Node fast = head.next;
+        while(fast != null && slow != null)
+        {
+            if(fast == slow)
+            {
+                break;
+            }
+            slow = slow.next;
+            if(fast.next != null)
+            {
+                fast = fast.next.next;
+            }
+            else
+            {
+                fast = null;
+            }
+        }
+        
+        if(fast != null)
+        {
+          //count num nodes in loop
+            Node copyFast = fast;
+            int nodesInLoop = 0;
+            while(copyFast.next != fast)
+            {
+//                System.out.print("fast = " + fast.data + ", copyFast = " + copyFast.data + "\n");
+                nodesInLoop++;
+                copyFast = copyFast.next;
+            }
+            fast = head;
+            while(nodesInLoop > 1)
+            {
+                fast = fast.next;
+                nodesInLoop--;
+            }
+            
+            slow = head;
+            while(slow != fast)
+            {
+//                System.out.print("fast = " + fast.data + ", slow = " + slow.data + "\n");
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            System.out.println(slow.data);
+        }
+	}
+
 }
