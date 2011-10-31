@@ -8,15 +8,16 @@ import org.junit.Test;
 
 public class LinkedListTest
 {
+    private static final int MAX_NODE = 20;
     private LinkedList<Integer> list = null;
     @Before
     public void setup()
     {
         list = new LinkedList<Integer>();
-        for(int i = 0; i < 10; i++)
+        for(int i = 0; i < MAX_NODE; i++)
         {
             list.append(i);
-//            list.insertAtHead(i);
+            list.insertAtHead(i);
         }
         list.print();
     }
@@ -62,6 +63,34 @@ public class LinkedListTest
         list.printLoopStartNode();
         list.removeLoopIfExists();
         Assert.assertEquals(false, list.detectLoop());
+        list.print();
+    }
+    
+    @Test
+    public void testReverse()
+    {
+        list.reverse();
+        list.print();
+    }
+    
+    @Test
+    public void testReverseRecursive()
+    {
+        list.reverseRecursive();
+        list.print();
+    }
+    
+    @Test
+    public void testReverseAltK()
+    {
+        list.reverseAltK(3);
+        list.print();
+    }
+    
+    @Test
+    public void testInsertSort()
+    {
+        list.insertSort();
         list.print();
     }
 }
