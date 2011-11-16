@@ -1,6 +1,6 @@
 package com.arpit.samples.linkedlists;
 
-public class LinkedList<T extends Comparable>
+public class LinkedList<T extends Comparable<T>>
 {
     class Node
     {
@@ -67,6 +67,11 @@ public class LinkedList<T extends Comparable>
 
     private Node actualReverseRec(Node headNode)
     {
+	if(headNode == null)
+	{
+		return null;
+	}
+
         if (headNode.next == null)
         {
             return headNode;
@@ -82,6 +87,25 @@ public class LinkedList<T extends Comparable>
         first.next = null;
         return revListHead;
     }
+
+	public void reverseRec2()
+	{
+		this.head = this.actualReverseRec2(this.head, null);
+	}
+
+	private Node actualReverseRec2(Node head, Node prvs)
+	{
+		if(head == null)	return null;
+		if(head.next == null)
+		{
+			head.next = prvs;
+			return head;
+		}
+		Node next = head.next;
+		head.next = prvs;
+		prvs = head;
+		return actualReverseRec2(next, prvs);
+	}
 
     public void deleteLast()
     {
@@ -324,4 +348,67 @@ public class LinkedList<T extends Comparable>
         }
         this.head = this.sortedInsert(headNode, copy);
     }
+
+	public void mergeSort()
+	{
+		this.head = actualMergeSort(this.head);
+	}
+	
+	private Node actualMergeSort(Node head)
+	{
+		if(head == null) return null;
+		if(head.next == null) return head;
+		Node mid = findMidAndSplit(head);
+		//System.out.println("mid = " + mid.data);
+		Node left = actualMergeSort(head);
+		Node right = actualMergeSort(mid);
+		//System.out.println("left = " + left.data);
+		//System.out.println("right = " + right.data);
+		return merge(left, right);
+	}
+
+	private Node findMidAndSplit(Node head)
+	{
+		if(head == null) return null;
+		Node slow = head;
+		Node fast = head.next;
+		while(fast != null)
+		{
+			fast = fast.next;
+			if(fast != null)
+			{
+				fast = fast.next;
+				slow = slow.next;
+			}
+		}
+		Node mid = slow.next;
+		slow.next = null;	//split
+		return mid;
+	}
+
+	private Node merge(Node left, Node right)
+	{
+		if(left == null) return right;
+		if(right == null) return left;
+		Node merged = new Node();
+		Node head = merged;
+		while(left != null && right != null)
+		{
+			if(left.data.compareTo(right.data) == -1)
+			{
+				merged.next = left;
+				left = left.next;
+			}
+			else
+			{
+				merged.next = right;
+				right = right.next;
+			}
+			merged = merged.next;
+		}
+
+		if(left != null){merged.next = left;}
+		if(right != null){merged.next = right;}
+		return head.next;
+	}
 }
