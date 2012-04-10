@@ -1,4 +1,4 @@
-package com.arpit.samples.random;
+//package com.arpit.samples.random;
 
 import java.util.*;
 
@@ -43,6 +43,24 @@ public class Iview
 		return gcd(b, a % b);
 	}
 
+    public void printEvenDups(int[] arr)
+    {
+        java.util.Arrays.sort(arr);
+        for(int i = 1; i < arr.length; i++)
+        {
+            int count = 1;
+            while(i < arr.length && arr[i-1] == arr[i])
+            {
+                count++;
+                i++;
+            }
+            if((count & 1) == 0)
+            {
+                System.out.println(arr[i-1]);
+            }
+        }
+    }
+
 	public static void main(String[] args)
 	{
 		//if(args.length == 0)
@@ -51,5 +69,8 @@ public class Iview
 		Iview.towerOfHanoi(3,'A', 'B', 'C');
 		int a = 425, b = 850;
 		System.out.println("GCD of " + a + " and " + b + " is " + gcd(a,b));
+        Iview iv = new Iview();
+        iv.printEvenDups(new int[]{1,1,1});
+        iv.printEvenDups(new int[]{0,1,1,1,2,2,3,3,4,4});
 	}
 }

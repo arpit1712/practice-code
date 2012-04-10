@@ -1,3 +1,5 @@
+package com.arpit.samples.ctci.ch1;
+
 import java.util.HashMap;
 
 public class Ans1_1

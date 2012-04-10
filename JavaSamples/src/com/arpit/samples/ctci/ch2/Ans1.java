@@ -1,3 +1,5 @@
+package com.arpit.samples.ctci.ch2;
+
 public class Ans1
 {
         public static void main(String[] args)
