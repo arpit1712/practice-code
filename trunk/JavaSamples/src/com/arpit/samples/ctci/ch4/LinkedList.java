@@ -1,9 +1,9 @@
-package com.arpit.samples.ctci.ch2;
+package com.arpit.samples.ctci.ch4;
 
 import java.util.HashSet;
 import java.util.Random;
 
-public class LinkedList<T extends Comparable<T>>
+public class LinkedList<T >
 {
 	private class Node
 	{
@@ -43,6 +43,15 @@ public class LinkedList<T extends Comparable<T>>
 		}
 		count++;
 	}
+
+	public T removeHead()
+	{
+		if(head == null)
+			return null;
+		T retVal = head.data;
+		head = head.next;
+		return retVal;
+	}	
 	
 	public void deleteNode(Node aNode)
 	{

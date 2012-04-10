@@ -1,3 +1,5 @@
+package com.arpit.samples.ctci.ch1;
+
 public class Ans1_2
 {
 

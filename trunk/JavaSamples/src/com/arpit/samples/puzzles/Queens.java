@@ -1,4 +1,4 @@
-package com.arpit.samples.puzzles;
+//package com.arpit.samples.puzzles;
 
 public class Queens
 {
@@ -14,17 +14,16 @@ public class Queens
 
 	public static void enumerate(int N)
 	{
-		int[] board = new int[8];
+		int[] board = new int[N];
 		enumerate(board, 0);
 	}
 
-	private static boolean enumerate(int[] board, int row)
+	private static void enumerate(int[] board, int row)
 	{
 		int N = board.length;
 		if(row == N)
 		{
 			printQueens(board);
-			return true;
 		}
 		else
 		{
@@ -33,12 +32,10 @@ public class Queens
 				board[row] = col;
 				if(isConsistent(board, row))
 				{
-					if(enumerate(board, row + 1))
-						break;
+					enumerate(board, row + 1);
 				}
 			}
 		}
-		return false;
 	}
 	
 	private static boolean isConsistent(int[] board, int row)
@@ -68,5 +65,4 @@ public class Queens
 		}
 		System.out.println();
 	}
-
 }

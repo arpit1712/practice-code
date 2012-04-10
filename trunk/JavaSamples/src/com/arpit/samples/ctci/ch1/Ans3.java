@@ -1,3 +1,5 @@
+package com.arpit.samples.ctci.ch1;
+
 public class Ans3
 {
 	public String removeDups(String str, boolean extraBufferAllowed)
